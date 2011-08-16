@@ -11,8 +11,13 @@ import cinister.massiverpg.MassiveRPG;
 
 
 public class PlayerProfile {
+	//Players name
 	private String name;
+	//The string is the name of the skill, the integer is the level of it 0-maxLevel, it's a reference for how many bonuses to add
 	private HashMap<String, Integer> playerSkills = new HashMap<String, Integer>();
+	//The string is the name of the spell, and the long is the cooldown in milliseconds
+	private HashMap<String, Long> playerSpells = new HashMap<String, Long>();
+	//This is the unique reference id in the database table
 	private long userid;
 	private int mana;
 	private int maxMana;
@@ -20,8 +25,11 @@ public class PlayerProfile {
 	private int health;
 	private int mainLevel;
 	private int mainXP;
+	//Their Learning Points
 	private int LP;
+	//The world in which he plays, perhaps unnecessary, but hey.
 	private String world;
+	//The string location is this, X,Y,Z seperated by commas and in string form.
 	private String spawnLocation;
 	
 	public PlayerProfile(Player player) {

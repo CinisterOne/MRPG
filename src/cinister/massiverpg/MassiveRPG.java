@@ -79,6 +79,8 @@ public class MassiveRPG extends JavaPlugin {
 		return file;
 	}
 	
+	
+	//TODO Create variables for these guys in GeneralData.java
 	public void loadGeneralConfiguration(String dataWorld) {
 		Properties props = new Properties();
 		try {
