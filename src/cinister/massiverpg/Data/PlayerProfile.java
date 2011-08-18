@@ -1,13 +1,10 @@
 package cinister.massiverpg.Data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import cinister.massiverpg.MassiveRPG;
 
 
 public class PlayerProfile {
@@ -25,6 +22,7 @@ public class PlayerProfile {
 	private int health;
 	private int mainLevel;
 	private int mainXP;
+	private String quickSpell = "";
 	//Their Learning Points
 	private int LP;
 	//The world in which he plays, perhaps unnecessary, but hey.
@@ -39,6 +37,16 @@ public class PlayerProfile {
 	//TODO Load all PlayerProfile data from MySQL, use database.java as a reference.
 	public PlayerProfile(String player) {
 		
+	}
+	
+	//Sets the spell that's cast when it is right clicked.
+	public void setQuickSpell(String quickSpell) {
+		//Checks to see if it exists
+		for (Spell spell : GeneralData.spells) {
+			if (spell.getName().equalsIgnoreCase(quickSpell)) {
+				this.quickSpell = quickSpell;
+			}
+		}
 	}
 	
 	public boolean addSkillPoints(String name, int amount) {
@@ -100,8 +108,10 @@ public class PlayerProfile {
 		if (this.getRemainingXP() <= 0) {
 			if (this.mainLevel + 1 <= GeneralData.MAX_LEVEL) {
 				this.levelUp();
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public int getHealth() {

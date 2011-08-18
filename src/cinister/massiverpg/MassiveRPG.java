@@ -119,6 +119,52 @@ public class MassiveRPG extends JavaPlugin {
 		}
 	}
 	
+	//This code is absolutely disgraceful, but unfortunately it needs to be done this way.
+	//This loads the configurations for Mobs primarily their XPs when a player kills them(Listener at MMEntityListener)
+	public void loadMobConfiguration(String dataWorld) {
+		Properties props = new Properties();
+		try {
+			File configFile = this.getFile(this.getDataWorldFile(dataWorld) + "/mobData/", "MassiveMobEXP.ini");
+			if (!configFile.exists()) {
+				configFile.createNewFile();
+				BufferedWriter bw = new BufferedWriter(new FileWriter(configFile));
+				bw.write("wolf=0");
+				bw.write("pig=0");
+				bw.write("sheep=0");
+				bw.write("cow=0");
+				bw.write("chicken=0");
+				bw.write("squid=0");
+				bw.write("zombie_pigman=0");
+				bw.write("zombie=0");
+				bw.write("skeleton=0");
+				bw.write("spider=0");
+				bw.write("spider_jockey=0");
+				bw.write("creeper=0");
+				bw.write("slime=0");
+				bw.write("ghast=0");
+				bw.close();
+			}
+			
+			props.load(new FileReader(configFile));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("wolf")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("pig")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("sheep")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("cow")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("chicken")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("squid")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("zombie_pigman")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("zombie")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("skeleton")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("spider")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("spider_jockey")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("creeper")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("slime")));
+			GeneralData.mobEXP.add(Integer.parseInt(props.getProperty("ghast")));
+		} catch (IOException ex) {
+			log.log(Level.WARNING, "Unable to read the propeties file MassiveMobEXP.ini");
+		}
+	}
+	
 	public void loadGeneralWorldConfiguration() {
 		Properties props = new Properties();
 		try {

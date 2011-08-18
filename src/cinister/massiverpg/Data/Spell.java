@@ -1,5 +1,10 @@
 package cinister.massiverpg.Data;
 
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
+
 public class Spell {
 	String name;
 	long cooldownTime;
@@ -46,6 +51,13 @@ public class Spell {
 	}
 	
 	public void activateSpell(PlayerInteractEvent event) {
-		
+		Player player = event.getPlayer();
+		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			if (player.getItemInHand().getType().equals(Material.STICK)) {
+				if (player.getItemInHand().getData().getData() == 0x4) {
+					
+				}
+			}
+		}
 	}
 }
