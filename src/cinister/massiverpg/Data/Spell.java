@@ -1,15 +1,18 @@
 package cinister.massiverpg.Data;
 
-import org.bukkit.Material;
+
+import org.bukkit.block.Block;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
+
+import cinister.massiverpg.Users;
+
 
 public class Spell {
-	String name;
-	long cooldownTime;
-	long startTime = -1;
-	int manaCost;
+	private String name;
+	private long cooldownTime;
+	private long startTime = -1;
+	private int manaCost;
 	PlayerSpellCast spellCast;
 	
 	public Spell(String name, long cooldownTime, int manaCost) {
@@ -50,14 +53,11 @@ public class Spell {
 		this.manaCost = manaCost;
 	}
 	
-	public void activateSpell(PlayerInteractEvent event) {
-		Player player = event.getPlayer();
-		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if (player.getItemInHand().getType().equals(Material.STICK)) {
-				if (player.getItemInHand().getData().getData() == 0x4) {
-					
-				}
-			}
+	public void activateSpell(Player caster, LivingEntity target, Block targetBlock) {
+		PlayerProfile profile = Users.getUser(caster);
+		if (profile.getMana() >= this.manaCost) {
+			this.spellCast.onCast(new CastEvent(caster, target, targetBlock));
 		}
 	}
 }
+				

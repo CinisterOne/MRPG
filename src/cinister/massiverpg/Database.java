@@ -8,11 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+import org.bukkit.entity.Player;
+
 import cinister.massiverpg.Data.GeneralData;
 import cinister.massiverpg.Data.Skill;
-import cinister.massiverpg.Data.Spell;
+import cinister.massiverpg.Data.Spells.Spell;
 
 //Got all this out of Java's official online website on MySQL databases, A.K.A JDBC.
+/*
+ * Special thanks to McMMO which heavily influenced this code, mostly is there's, I just tweaked it for the specific database
+ */
 public class Database {
 	private Connection conn;
 	private MassiveRPG plugin;
@@ -59,6 +65,8 @@ public class Database {
 					"'maxmana' int(10) NOT NULL," +
 					"'mana' int(10) NOT NULL," + 
 					"'learnpoints' int(10) NOT NULL," +
+					"'quickspell' varchar(40) NOT NULL," +
+					"'castedspell' varchar(40) NOT NULL," +
 					"PRIMARY KEY ('id')," + 
 					"UNIQUE KEY 'user' ('user')) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;"
 			);
@@ -68,7 +76,7 @@ public class Database {
 					"PRIMARY KEY ('user_id') ENGINE=MyISAM DEFAULT CHARSET=latin1;"
 			);
 			//Spells
-			write("CREATE TABLE IF NOT EXISTS '" + GeneralData.MySQLPrefix + world + "spells' ('user_id' int(20) unsigned NOT NULL," +
+			write("CREATE TABLE IF NOT EXISTS '" + GeneralData.MySQLPrefix + world + "spells' ('user_id' int(10) unsigned NOT NULL," +
 					cooldownStatement + 
 					"PRIMARY KEY ('user_id') ENGINE=MyISAM DEFAULT CHARSET=latin1;"
 			);
@@ -94,7 +102,7 @@ public class Database {
 				}
 			}
 		} catch (SQLException ex) {
-			//log.info("Set up your database dumbo >.<");
+			//log.info("A database is required in storing MySQL.");
 		}
 	}
 	

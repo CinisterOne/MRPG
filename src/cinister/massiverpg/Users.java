@@ -2,9 +2,11 @@ package cinister.massiverpg;
 
 import java.util.HashMap;
 
+
 import org.bukkit.entity.Player;
 
 import cinister.massiverpg.Data.PlayerProfile;
+
 
 public class Users {
 	public static HashMap<String, PlayerProfile> users = new HashMap<String, PlayerProfile>();
@@ -12,7 +14,7 @@ public class Users {
 	public static PlayerProfile getUser(Player player) {
 		PlayerProfile profile = null;
 		if (!(users.containsKey(player.getName()))) {
-			users.put(player.getName(), profile = new PlayerProfile(player));
+			Users.addUser(player);
 		} else {
 			profile = users.get(player.getName());
 		}
@@ -20,15 +22,17 @@ public class Users {
 	}
 	
 	//Just adding a bit of options
-	public static void addUser(Player player) {
-		Users.addUser(player.getName());
+	public static PlayerProfile addUser(Player player) {
+		return Users.addUser(player.getName(), player.getWorld().getName());
 	}
 	
-	public static void addUser(String player) {
+	public static PlayerProfile addUser(String player, String world) {
+		PlayerProfile pp = null;
 		if (!users.containsKey(player)) {
-			PlayerProfile pp = new PlayerProfile(player);
+			pp = new PlayerProfile(player, world);
 			users.put(player, pp);
 		}
+		return pp;
 	}
 	
 	public static void removeUser(Player player) {

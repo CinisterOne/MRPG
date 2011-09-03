@@ -1,22 +1,19 @@
 package cinister.massiverpg;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
+
 import cinister.massiverpg.Data.GeneralData;
-import cinister.massiverpg.Data.PlayerSpellCast;
-import cinister.massiverpg.Data.Spell;
+import cinister.massiverpg.Data.Spells.PlayerSpellCast;
+import cinister.massiverpg.Data.Spells.Spell;
 
 public class SpellLoader {
 	private static Logger log = Logger.getLogger("Minecraft");
 	
 	public static void load(String directory) throws ClassNotFoundException, Exception {
-		List<PlayerSpellCast> spells = new ArrayList<PlayerSpellCast>();
 		File dir = new File(directory);
 		log.info("Loading spells...");
 		

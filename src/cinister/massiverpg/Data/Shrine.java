@@ -15,8 +15,17 @@ public class Shrine {
 		this.world = world;
 	}
 	
+	public static Shrine getShrine(Location loc) {
+		for (Shrine shrine : GeneralData.shrines) {
+			if (shrine.isWithin(loc)) {
+				return shrine;
+			}
+		}
+		return null;
+	}
+	
 	public boolean isWithin(Location loc) {
-		return ((loc.getX() >= locationOrigin.getX() && loc.getY() >= locationOrigin.getY() && loc.getZ() >= locationOrigin.getZ()) && (loc.getX() <= locationEnd.getX() && loc.getY() <= locationEnd.getY() && loc.getZ() <= locationEnd.getZ()));
+		return (((loc.getX() >= locationOrigin.getX() && loc.getY() >= locationOrigin.getY() && loc.getZ() >= locationOrigin.getZ()) && (loc.getX() <= locationEnd.getX() && loc.getY() <= locationEnd.getY() && loc.getZ() <= locationEnd.getZ())) && loc.getWorld().getName().equals(world));
 	}
 	
 	public String getName() {
